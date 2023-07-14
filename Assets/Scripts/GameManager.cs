@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,8 +31,15 @@ public class GameManager : MonoBehaviour
         SpawnCar();
     }
 
+    IEnumerator WaitBeforeCurrentCar()
+    {
+        yield return new WaitForSeconds(2f);
+    }
+
+
     public void HandleCarCrash()
     {
+        WaitBeforeCurrentCar() ;
         foreach (var item in cars)
         {
             item.ReplayRoad();

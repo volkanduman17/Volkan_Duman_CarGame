@@ -24,6 +24,10 @@ public class Car : MonoBehaviour
         startPos = transform.position;
     }
 
+    
+
+
+
     private void Update()
     {
         if (isCompleted)
