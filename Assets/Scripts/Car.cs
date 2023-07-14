@@ -37,6 +37,7 @@ public class Car : MonoBehaviour
         int currentIndex;
         Vector3 currentTarget;
 
+
     public void ReplayRoad()
     {
         transform.DOKill();
@@ -47,13 +48,14 @@ public class Car : MonoBehaviour
         }
         Sequence sequence = DOTween.Sequence();
         float totalTime = 5f;
-        for (int i = 0; i < path.Count-1; i++)
+        for (int i = 0; i < path.Count-5; i++)
         {
             Vector3 item = path[i];
             sequence.Append(transform.DOMove(item, totalTime/path.Count)).Join(transform.DOLookAt(item, totalTime/path.Count));
         }
 
     }
+
 
     private void Turn()
     {
