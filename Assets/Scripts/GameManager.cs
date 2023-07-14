@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,7 +29,25 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        LoadLevel(level:DataManager.Level);
         SpawnCar();
+
+    }
+
+    public void LoadLevel(int level)
+    {
+        // LevelPoints scriptine eriþ
+        LevelPoints levelPoints = FindObjectOfType<LevelPoints>();
+        if (levelPoints != null)
+        {
+            spawnPoints = levelPoints.spawnPoints;
+            targetPoints = levelPoints.targetPoints;
+        }
+        else
+        {
+            Debug.LogError("LevelPoints script not found!");
+            return;
+        }
     }
 
     IEnumerator WaitBeforeCurrentCar()
@@ -79,8 +98,13 @@ public class GameManager : MonoBehaviour
     {
         if (currentCarIndex==8)
         {
-            // Son arabaysa ve hedefe ulaþmýþsa oyunu bitir
+            LevelManager.instance.NextLevel();
             EndGame();
+            
+           // DataManager.Level++;
+           // LoadLevel(DataManager.Level);
+           // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //EndGame();
         }
         else
         {
@@ -97,9 +121,10 @@ public class GameManager : MonoBehaviour
 
     private void EndGame()
     {
-        Debug.Log("Oyun bitti!");
+        Debug.Log("Level bitti!");
 
-        // Arabalarý sýfýrla ve yeniden spawn et
+        LoadLevel(DataManager.Level);
+
         foreach (Car car in cars)
         {
             car.ResetPath();
@@ -108,6 +133,10 @@ public class GameManager : MonoBehaviour
         cars.Clear();
 
         currentCarIndex = 0;
+
+
+        LoadLevel(DataManager.Level);
+
 
     }
 }

@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024b1d06ad56cb4429dbc2c85d32d5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 25
   turnSpeed: 200
   path: []
 --- !u!54 &1611967189336516691

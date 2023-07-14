@@ -70,7 +70,6 @@ public class Car : MonoBehaviour
             if (touch.position.x > Screen.width / 2)
             {
                
-                    Debug.Log("Saða döndün");
                     transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime);
                     rb.angularVelocity = Vector3.zero;                   
                 
@@ -78,7 +77,6 @@ public class Car : MonoBehaviour
             else if (touch.position.x < Screen.width / 2)
             {
                 
-                    Debug.Log("Sola döndün");
                     transform.Rotate(Vector3.up, -turnSpeed * Time.deltaTime);
                     rb.angularVelocity = Vector3.zero;
 
