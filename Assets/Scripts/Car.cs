@@ -13,20 +13,16 @@ public class Car : MonoBehaviour
 
     private bool isCompleted;
 
-    private float recordInterval = 0.05f; // Ardýþýk dönüþler arasýndaki kayýt aralýðý
-    private float lastRecordTime; // Son kaydýn yapýldýðý zama
+    private float recordInterval = 0.04f; // Kayýtlar arasýndaki zaman aralýðý.
+    private float lastRecordTime; 
 
-    [SerializeField] private List<Vector3> path = new List<Vector3>(); // Arabanýn izlediði yolun saklandýðý liste
+    [SerializeField] private List<Vector3> path = new List<Vector3>(); // Arabanýn izlediði yolun saklandýðý liste.
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         startPos = transform.position;
     }
-
-    
-
-
 
     private void Update()
     {
@@ -52,7 +48,7 @@ public class Car : MonoBehaviour
         }
         Sequence sequence = DOTween.Sequence();
         float totalTime = 5f;
-        for (int i = 0; i < path.Count-5; i++)
+        for (int i = 0; i < path.Count-8; i++)
         {
             Vector3 item = path[i];
             sequence.Append(transform.DOMove(item, totalTime/path.Count)).Join(transform.DOLookAt(item, totalTime/path.Count));
@@ -78,9 +74,7 @@ public class Car : MonoBehaviour
             {
                 
                     transform.Rotate(Vector3.up, -turnSpeed * Time.deltaTime);
-                    rb.angularVelocity = Vector3.zero;
-
-                    
+                    rb.angularVelocity = Vector3.zero; 
                 
             }
         }
@@ -89,15 +83,13 @@ public class Car : MonoBehaviour
     private void Move()
     {
         Vector3 forwardForce = transform.forward * speed * Time.deltaTime;
-        forwardForce.y = 0f; // Y eksenindeki kuvveti sýfýrlayarak düz bir hareket saðlar
+        forwardForce.y = 0f; // Y eksenindeki kuvveti sýfýrlayarak düz bir hareket saðladýk
         rb.AddForce(forwardForce, ForceMode.VelocityChange);
-        // Sadece kaydýn yapýldýðý zamaný güncelleyin
 
     if (Time.time > lastRecordTime + recordInterval)
     {
             lastRecordTime = Time.time;
 
-            // Sadece dönüþlerde RecordPath fonksiyonunu çaðýrýn
             RecordPath(transform.position);
     }
     }
@@ -105,28 +97,24 @@ public class Car : MonoBehaviour
     public void SetTargetPoint(Transform target)
     {
         Vector3 targetPosition = target.position;
-        // Hedefe doðru yönelmek için dönüþ rotasyonunu hesaplayýn
         Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
-        // Arabayý hedefe doðru yöneltin
         transform.rotation = targetRotation;
     }
 
     public void RecordPath(Vector3 position)
     {
-        // Arabanýn izlediði yolu kaydetmek için path listesine pozisyon ekleyin
         path.Add(transform.position);
     }
 
     public void ResetPath()
     {
-        // Yeni bir araba spawn olduðunda path listesini sýfýrlayýn
+        // Yeni bir araba spawn olduðunda path listesini sýfýrladým
         path.Clear();
-        path.Add(transform.position); // Arabanýn þu anki konumunu path listesine ekleyin
+        path.Add(transform.position); 
     }
 
     public List<Vector3> GetPath()
     {
-        // Arabanýn izlediði yolu döndürmek için kullanýlýr
         return path;
     }
 

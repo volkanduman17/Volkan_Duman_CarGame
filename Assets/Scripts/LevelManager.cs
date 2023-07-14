@@ -19,14 +19,7 @@ public class LevelManager : MonoBehaviour
         Instantiate(Levels[DataManager.Level]);
     }
 
-
     public List<GameObject> Levels;
-
-    private void Start()
-    {
-        
-    }
-
 
     public void NextLevel()
     {
@@ -34,7 +27,6 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("level arttýrýldý");
         Instantiate(Levels[DataManager.Level]);
-        //gameObject.SetActive(false);
     }
 
 }

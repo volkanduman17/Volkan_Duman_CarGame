@@ -69,11 +69,10 @@ public class GameManager : MonoBehaviour
     {
         if (currentCarIndex < spawnPoints.Count)
         {
-            // Arabayý spawn edin ve baþlangýç noktasýna yerleþtirin
+            
             Car newCar = Instantiate(carPrefab, spawnPoints[currentCarIndex].position, spawnPoints[currentCarIndex].rotation);
             cars.Add(newCar);
 
-            // Arabanýn hedefini ayarlayýn
             foreach (var item in targetPoints)
             {
                 item.GetComponent<MeshRenderer>().enabled = false;
@@ -84,7 +83,7 @@ public class GameManager : MonoBehaviour
             }
             newCar.SetTargetPoint(targetPoints[currentCarIndex]);
 
-            // Daha önceki arabalarýn yolu takip etmesi için path listesini güncelleyin
+            // Daha önceki arabalarýn yolu takip etmesi için path listesini güncelledik
             for (int i = 0; i < cars.Count  ; i++)
             {
                 cars[i].RecordPath(cars[i].transform.position);
@@ -99,12 +98,8 @@ public class GameManager : MonoBehaviour
         if (currentCarIndex==8)
         {
             LevelManager.instance.NextLevel();
-            EndGame();
-            
-           // DataManager.Level++;
-           // LoadLevel(DataManager.Level);
-           // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //EndGame();
+            EndLevel();
+     
         }
         else
         {
@@ -119,7 +114,7 @@ public class GameManager : MonoBehaviour
         SpawnCar();
     }
 
-    private void EndGame()
+    private void EndLevel()
     {
         Debug.Log("Level bitti!");
 
